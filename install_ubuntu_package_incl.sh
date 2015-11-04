@@ -45,7 +45,7 @@ install_repos()
         then
             print_exist "repository" $s 0
             is_update_needed=1
-            sudo add-apt-repository ppa:$s
+            sudo add-apt-repository -y ppa:$s
         else
             print_exist "repository" $s 1
         fi
