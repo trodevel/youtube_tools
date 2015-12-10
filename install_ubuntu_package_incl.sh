@@ -34,7 +34,7 @@ print_exist()
 
 install_repos()
 {
-    declare -a repos=("${!1}")
+    local repos=("${!1}")
 
     local is_update_needed=0
 
@@ -57,11 +57,11 @@ install_repos()
 
 install_packages()
 {
-    declare -a apps=("${!1}")
+    local apps=("${!1}")
 
     for s in ${apps[@]}
     do
-        has=$( dpkg -l | grep "\s${s}\s" )
+        has=$( dpkg -l | grep "\s${s}\(\s\|:\)" ) #" package name may end with semicolon (e.g. :amd64)
         if [ -z "$has" ]
         then
             print_exist "package" $s 0
@@ -74,8 +74,11 @@ install_packages()
 
 setup()
 {
-    declare -a repos=("${!1}")
-    declare -a apps=("${!2}")
+    local repos=("${!1}")
+    local apps=("${!2}")
+
+    #echo "DBG: REPOS = ${repos[@]}, 1 = $1"
+    #echo "DBG: APPS = ${apps[@]}, 2 = $2"
 
     install_repos repos[@]
     local is_update_needed=$?
