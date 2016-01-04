@@ -18,9 +18,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-repos=( stefansundin/truecrypt libreoffice/ppa )
+repos=( stefansundin/truecrypt libreoffice/ppa b-eltzner/qpdfview )
 apps=( mc workrave redshift gtk-redshift gnome-panel openjdk-7-jre secure-delete truecrypt encfs libreoffice
-    nautilus-dropbox dropbox )
+    nautilus-dropbox dropbox
+    qpdfview
+    )
 
 source "install_ubuntu_package_incl.sh"
 
