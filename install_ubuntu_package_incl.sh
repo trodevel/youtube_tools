@@ -34,11 +34,11 @@ print_exist()
 
 install_repos()
 {
-    local repos=("${!1}")
+    local repos=$1
 
     local is_update_needed=0
 
-    for s in ${repos[@]}
+    for s in $repos
     do
         has=$( egrep -v '^#|^ *$' /etc/apt/sources.list /etc/apt/sources.list.d/* 2>/dev/null | grep $s )
         if [ -z "$has" ]
@@ -57,9 +57,9 @@ install_repos()
 
 install_packages()
 {
-    local apps=("${!1}")
+    local apps=$1
 
-    for s in ${apps[@]}
+    for s in $apps
     do
         has=$( dpkg -l | grep "\s${s}\(\s\|:\)" ) #" package name may end with semicolon (e.g. :amd64)
         if [ -z "$has" ]
@@ -72,15 +72,15 @@ install_packages()
     done
 }
 
-setup()
+setup_intern()
 {
-    local repos=("${!1}")
-    local apps=("${!2}")
+    local repos=$1
+    local apps=$2
 
     #echo "DBG: REPOS = ${repos[@]}, 1 = $1"
     #echo "DBG: APPS = ${apps[@]}, 2 = $2"
 
-    install_repos repos[@]
+    install_repos "$repos"
     local is_update_needed=$?
 
     if [ $is_update_needed -eq 1 ]
@@ -88,5 +88,26 @@ setup()
         sudo apt-get update
     fi
 
-    install_packages apps[@]
+    install_packages "$apps"
+}
+
+setup()
+{
+    local prefix=$1
+    local packages=$2
+
+    for s in $packages
+    do
+        local name="apps_${prefix}_${s}.cfg"
+
+        if [ -f "$name" ]
+        then
+            source "$name"
+        else
+            echo "ERROR: package file $name not found"
+            exit
+        fi
+    done
+
+    setup_intern "$REPOS" "$APPS"
 }
