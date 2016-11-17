@@ -20,7 +20,7 @@
 
 source "install_ubuntu_package_incl.sh"
 
-setup ubuntu_1204 "comfort devtools gcc office security terminal webdev skype linphone"
+setup ubuntu_1204 "comfort devtools gcc office security terminal webdev skype"
 
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
