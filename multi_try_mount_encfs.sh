@@ -23,6 +23,7 @@ COMMENT
 
 # SKV
 # 18316 - 1.0 - initial version
+# 18325 - 1.1 - added exit codes
 
 #<hb>***************************************************************************
 #
@@ -31,6 +32,8 @@ COMMENT
 # MAX_LOGIN_TRIES     - maximal number of prompts to enter encfs password
 #
 # encfs arguments     - arguments passed to encfs
+#
+# RETURN: 0 - success, 1 - failure
 #
 # Example: multi_try_mount_encfs.sh 3 /encrypted/folder /decrypted/folder
 #
@@ -87,6 +90,8 @@ encfs_args=$*
 multi_try_mount_encfs $encfs_args
 res=$?
 
-[[ $res -eq 0 ]] && echo "ERROR: cannot mount encfs" && exit
+[[ $res -eq 0 ]] && echo "ERROR: cannot mount encfs" && exit 1
 
 echo "password OK"
+
+exit 0
