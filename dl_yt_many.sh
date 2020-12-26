@@ -20,7 +20,7 @@ ytdl()
 
     echo "starting download $NUM"
 
-    ytdl.sh $LINK >$outp
+    ytdl.sh $LINK $NUM >$outp
 
     rm $outp
 
