@@ -15,7 +15,8 @@ ytdl()
 {
     local NUM=$1
     local LINK=$2
-    local outp="/tmp/ytdl_${NUM}_${RANDOM}.txt"
+    local DATUM=$3
+    local outp="/tmp/ytdl_${DATUM}_${NUM}_${RANDOM}.txt"
 
     echo "starting download $NUM"
 
@@ -26,13 +27,15 @@ ytdl()
     echo "finished download $NUM"
 }
 
+DATUM=$(date -u +%Y%m%d_%H%M%S)
+
 CURDIR=$( pwd )
 
 cd $FOLDER
 
 for s in $links;
 do
-    ytdl $i $s &
+    ytdl $i $s "$DATUM" &
 
     pid=$!
 
