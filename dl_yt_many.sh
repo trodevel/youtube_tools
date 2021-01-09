@@ -6,7 +6,6 @@ FOLDER=$2
 [[ -z $LINKS ]] && echo "ERROR: links is not given" && exit
 [[ -z $FOLDER ]] && echo "ERROR: folder is not given" && exit
 
-i=1;
 links=$( cat $LINKS | sed "s/&link.*//" );
 
 pids=""
@@ -33,6 +32,10 @@ CURDIR=$( pwd )
 
 cd $FOLDER
 
+MAX_PARALLEL_DOWNLOADS=10
+
+i=0
+
 for s in $links;
 do
     ytdl $i $s "$DATUM" &
@@ -42,6 +45,13 @@ do
     pids="$pids $pid"
 
     ((i++))
+
+    if [[ $(( i % MAX_PARALLEL_DOWNLOADS )) == 0 ]]
+    then
+        echo "INFO: max parallel downloads reached ($MAX_PARALLEL_DOWNLOADS), waiting for completion"
+        wait $pids
+        pids=""
+    fi
 
 done;
 
