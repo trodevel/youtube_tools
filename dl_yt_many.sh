@@ -17,13 +17,19 @@ ytdl()
     local DATUM=$3
     local outp="/tmp/ytdl_${DATUM}_${NUM}_${RANDOM}.txt"
 
-    echo "starting download $NUM"
+    local TM=$(( RANDOM % 20 ))
+
+    echo "$NUM: sleeping $TM sec"
+
+    sleep $TM
+
+    echo "$NUM: starting"
 
     ytdl.sh $LINK $NUM >$outp
 
     rm $outp
 
-    echo "finished download $NUM"
+    echo "$NUM: finished"
 }
 
 DATUM=$(date -u +%Y%m%d_%H%M%S)
