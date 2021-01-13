@@ -44,13 +44,13 @@ i=0
 
 for s in $links;
 do
+    ((i++))
+
     ytdl $i $s "$DATUM" &
 
     pid=$!
 
     pids="$pids $pid"
-
-    ((i++))
 
     if [[ $(( i % MAX_PARALLEL_DOWNLOADS )) == 0 ]]
     then
