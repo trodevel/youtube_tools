@@ -11,7 +11,7 @@ DATUM=$(date -u +%Y%m%d)
 
 LIST_NAME=channel_${NAME}_${DATUM}.txt
 
-youtube-dl -j --flat-playlist $PAR "https://www.youtube.com/c/$NAME/videos"  | jq -r '.id' | sed 's_^_https://youtu.be/_' > $LIST_NAME
+youtube-dl -j --flat-playlist $PAR "https://www.youtube.com/c/$NAME/videos"  | jq -r '.id' | sed 's_^_https://youtu.be/_' | tac > $LIST_NAME
 
 echo -n "number of videos : "
 
