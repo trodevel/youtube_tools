@@ -1,6 +1,7 @@
 #!/bin/bash
 
 NAME=$1
+OUTP=$2
 
 [[ -z $NAME ]] && echo "ERROR: NAME is not given" && exit
 
@@ -19,4 +20,9 @@ NUM=$( echo $FLS | wc -w )
 
 [[ $NUM -ne 2 ]] && echo "ERROR: not enough files - files expected 2, got $NUM" && exit
 
-show_new_lines.sh $FLS
+if [[ -n $OUTP ]]
+then
+    show_new_lines.sh $FLS > $OUTP
+else
+    show_new_lines.sh $FLS
+fi
