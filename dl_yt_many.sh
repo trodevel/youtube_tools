@@ -8,6 +8,10 @@ FOLDER=$2
 
 links=$( cat $LINKS | sed "s/&link.*//" );
 
+num_links=$( echo $links | wc -w )
+
+echo "INFO: number of links to download - $num_links"
+
 pids=""
 
 ytdl()
