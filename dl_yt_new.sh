@@ -8,8 +8,8 @@ ID=$2
 
 DATUM=$(date -u +%Y%m%d)
 
-[[ -d $DATUM ]] && mkdir $DATUM
-[[ -d $DATUM/$NAME ]] && mkdir $DATUM/$NAME
+[[ ! -d $DATUM ]] && mkdir $DATUM
+[[ ! -d $DATUM/$NAME ]] && mkdir $DATUM/$NAME
 
 LIST_NAME=channel_${NAME}_${DATUM}.txt
 
@@ -19,6 +19,8 @@ then
 else
     dl_yt_channel_list_by_name.sh $NAME $LIST_NAME
 fi
+
+echo "INFO: downloaded list"
 
 DIFF_NAME=diff_${LIST_NAME}
 
