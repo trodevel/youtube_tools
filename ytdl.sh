@@ -11,3 +11,9 @@ then
 else
     youtube-dl -x --embed-thumbnail --audio-format mp3 --add-metadata --audio-quality 0 -o "$PREF - %(title)s.%(ext)s" $URL
 fi
+
+res=$?
+
+#echo "DEBUG: res = $res"
+
+exit $res
