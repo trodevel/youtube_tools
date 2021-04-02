@@ -36,7 +36,14 @@ ytdl_core()
 
     rm $outp
 
-    echo "$NUM: finished"
+    if [[ $res -eq 0 ]]
+    then
+        echo "$NUM: finished"
+    else
+        echo "$NUM: failed"
+    fi
+
+    return $res
 }
 
 ytdl()
