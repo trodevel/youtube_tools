@@ -21,6 +21,7 @@ ytdl_core()
     local NUM=$1
     local LINK=$2
     local DATUM=$3
+    local TRY_NUM=$4
     local outp="/tmp/ytdl_${DATUM}_${NUM}_${RANDOM}.txt"
 
     local TM=$(( RANDOM % 20 ))
@@ -29,19 +30,21 @@ ytdl_core()
 
     sleep $TM
 
-    echo "$NUM: starting"
+    echo "$NUM: starting (try $TRY_NUM)"
 
     ytdl.sh $LINK $NUM >$outp
     local res=$?
 
     rm $outp
 
-    if [[ $res -eq 0 ]]
+    local resolution="finished"
+
+    if [[ $res -ne 0 ]]
     then
-        echo "$NUM: finished"
-    else
-        echo "$NUM: failed"
+        resolution="failed"
     fi
+
+    echo "$NUM: $resolution"
 
     return $res
 }
@@ -52,7 +55,15 @@ ytdl()
     local LINK=$2
     local DATUM=$3
 
-    ytdl_core $NUM $LINK $DATUM
+    local i=1
+
+    while [ $i -le $MAX_NUM_RETRIES ]
+    do
+        ytdl_core $NUM $LINK $DATUM $i
+        local res=$?
+        [[ $res -eq 0 ]] && break
+        i=$[$i+1]
+    done
 }
 
 DATUM=$(date -u +%Y%m%d_%H%M%S)
