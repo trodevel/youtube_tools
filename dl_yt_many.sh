@@ -14,7 +14,9 @@ echo "INFO: number of links to download - $num_links"
 
 pids=""
 
-ytdl()
+MAX_NUM_RETRIES=3
+
+ytdl_core()
 {
     local NUM=$1
     local LINK=$2
@@ -30,10 +32,20 @@ ytdl()
     echo "$NUM: starting"
 
     ytdl.sh $LINK $NUM >$outp
+    local res=$?
 
     rm $outp
 
     echo "$NUM: finished"
+}
+
+ytdl()
+{
+    local NUM=$1
+    local LINK=$2
+    local DATUM=$3
+
+    ytdl_core $NUM $LINK $DATUM
 }
 
 DATUM=$(date -u +%Y%m%d_%H%M%S)
