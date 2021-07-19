@@ -81,7 +81,7 @@ start()
 
     local links=$( echo $ALL_LINKS | sed -n "$first_link,${last_link}p;${next_first_link}q" )
 
-    local num_links=( echo $links | wc -w )
+    local num_links=$( echo $links | wc -w )
 
     echo "[$INST_NUM] DEBUG: num_links=$num_links"
 }
