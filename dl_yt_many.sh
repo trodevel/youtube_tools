@@ -94,7 +94,7 @@ cd $FOLDER
 
 MAX_PARALLEL_DOWNLOADS=10
 
-PAGE_SIZE=(( 1 + num_links / MAX_PARALLEL_DOWNLOADS ))
+PAGE_SIZE=$(( 1 + num_links / MAX_PARALLEL_DOWNLOADS ))
 
 echo "DEBUG: page size = $PAGE_SIZE"
 
