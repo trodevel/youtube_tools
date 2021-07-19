@@ -66,6 +66,13 @@ ytdl()
     done
 }
 
+start()
+{
+    local LINKS=$1
+    local PAGE_SIZE=$2
+    local INST_NUM=$3
+}
+
 DATUM=$(date -u +%Y%m%d_%H%M%S)
 
 CURDIR=$( pwd )
@@ -73,6 +80,10 @@ CURDIR=$( pwd )
 cd $FOLDER
 
 MAX_PARALLEL_DOWNLOADS=10
+
+PAGE_SIZE=(( 1 + num_links / MAX_PARALLEL_DOWNLOADS ))
+
+echo "DEBUG: page size = $PAGE_SIZE"
 
 i=0
 
