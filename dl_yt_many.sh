@@ -98,13 +98,9 @@ PAGE_SIZE=$(( 1 + num_links / MAX_PARALLEL_DOWNLOADS ))
 
 echo "DEBUG: page size = $PAGE_SIZE"
 
-i=0
-
-for s in $MAX_PARALLEL_DOWNLOADS
+for i in $(seq 1 $MAX_PARALLEL_DOWNLOADS)
 do
-    ((i++))
-
-    start "$links" $PAGE_SIZE "$DATUM" $s &
+    start "$links" $PAGE_SIZE "$DATUM" $i &
 
     pid=$!
 
