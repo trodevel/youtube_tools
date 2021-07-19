@@ -73,7 +73,7 @@ start()
     local DATUM=$3
     local INST_NUM=$4
 
-    local first_link=$(( ( INST_NUM - 1 ) * PAGE_SIZE ))
+    local first_link=$(( 1 + ( INST_NUM - 1 ) * PAGE_SIZE ))
     local last_link=$(( INST_NUM * PAGE_SIZE ))
     local next_first_link=$(( 1 + INST_NUM * PAGE_SIZE ))
 
