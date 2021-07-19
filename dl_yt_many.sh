@@ -77,13 +77,13 @@ start()
     local last_link=$(( INST_NUM * PAGE_SIZE ))
     local next_first_link=$(( 1 + INST_NUM * PAGE_SIZE ))
 
-    echo "[$INST_NUM] DEBUG: first_link=$first_link last_link=$last_link next_first_link=$next_first_link"
+    echo "DEBUG: first_link=$first_link last_link=$last_link next_first_link=$next_first_link"
 
     local links=$( echo $ALL_LINKS | sed -n "$first_link,${last_link}p;${next_first_link}q" )
 
     local num_links=$( echo $links | wc -w )
 
-    echo "[$INST_NUM] DEBUG: num_links=$num_links"
+    echo "DEBUG: num_links=$num_links"
 }
 
 DATUM=$(date -u +%Y%m%d_%H%M%S)
@@ -100,7 +100,7 @@ echo "DEBUG: page size = $PAGE_SIZE"
 
 for i in $(seq 1 $MAX_PARALLEL_DOWNLOADS)
 do
-    start "$links" $PAGE_SIZE "$DATUM" $i &
+    start "$links" $PAGE_SIZE "$DATUM" $i | sed "s/^/[$i] /" &
 
     pid=$!
 
