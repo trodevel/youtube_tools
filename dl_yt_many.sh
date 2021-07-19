@@ -73,13 +73,13 @@ start()
     local DATUM=$3
     local INST_NUM=$4
 
-    local first_link=(( ( INST_NUM - 1 ) * PAGE_SIZE ))
-    local last_link=(( INST_NUM * PAGE_SIZE ))
-    local next_first_link=(( INST_NUM * PAGE_SIZE ))
+    local first_link=$(( ( INST_NUM - 1 ) * $PAGE_SIZE ))
+    local last_link=$(( INST_NUM * PAGE_SIZE ))
+    local next_first_link=$(( INST_NUM * PAGE_SIZE ))
 
     echo "[$INST_NUM] DEBUG: first_link=$first_link last_link=$last_link next_first_link=$next_first_link"
 
-    local links=$( echo $ALL_LINKS | sed -n "$first_link,${last_link}p;${next_first_link}q' )
+    local links=$( echo $ALL_LINKS | sed -n "$first_link,${last_link}p;${next_first_link}q" )
 
     local num_links=( echo $links | wc -w )
 
