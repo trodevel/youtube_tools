@@ -100,22 +100,15 @@ echo "DEBUG: page size = $PAGE_SIZE"
 
 i=0
 
-for s in $links;
+for s in $MAX_PARALLEL_DOWNLOADS
 do
     ((i++))
 
-    ytdl $i $s "$DATUM" &
+    start $links $PAGE_SIZE "$DATUM" $s &
 
     pid=$!
 
     pids="$pids $pid"
-
-    if [[ $(( i % MAX_PARALLEL_DOWNLOADS )) == 0 ]]
-    then
-        echo "INFO: max parallel downloads reached ($MAX_PARALLEL_DOWNLOADS), waiting for completion"
-        wait $pids
-        pids=""
-    fi
 
 done;
 
