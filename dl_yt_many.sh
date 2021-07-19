@@ -73,7 +73,7 @@ start()
     local DATUM=$3
     local INST_NUM=$4
 
-    local first_link=$(( ( INST_NUM - 1 ) * $PAGE_SIZE ))
+    local first_link=$(( ( INST_NUM - 1 ) * PAGE_SIZE ))
     local last_link=$(( INST_NUM * PAGE_SIZE ))
     local next_first_link=$(( INST_NUM * PAGE_SIZE ))
 
@@ -104,7 +104,7 @@ for s in $MAX_PARALLEL_DOWNLOADS
 do
     ((i++))
 
-    start $links $PAGE_SIZE "$DATUM" $s &
+    start "$links" $PAGE_SIZE "$DATUM" $s &
 
     pid=$!
 
