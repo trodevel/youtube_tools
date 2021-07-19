@@ -6,6 +6,8 @@ FOLDER=$2
 [[ -z $LINKS ]] && echo "ERROR: links is not given" && exit
 [[ -z $FOLDER ]] && echo "ERROR: folder is not given" && exit
 
+[[ ! -f $LINKS ]] && echo "ERROR: links file $LINKS not found" && exit
+
 links=$( cat $LINKS | sed "s/&link.*//" );
 
 num_links=$( echo $links | wc -w )
