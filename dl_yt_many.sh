@@ -75,7 +75,7 @@ start()
 
     local first_link=$(( ( INST_NUM - 1 ) * PAGE_SIZE ))
     local last_link=$(( INST_NUM * PAGE_SIZE ))
-    local next_first_link=$(( INST_NUM * PAGE_SIZE ))
+    local next_first_link=$(( 1 + INST_NUM * PAGE_SIZE ))
 
     echo "[$INST_NUM] DEBUG: first_link=$first_link last_link=$last_link next_first_link=$next_first_link"
 
