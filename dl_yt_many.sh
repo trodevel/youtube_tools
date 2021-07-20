@@ -86,6 +86,14 @@ start()
     local num_links=$( echo $links | wc -w )
 
     echo "DEBUG: num_links=$num_links"
+
+    local i=first_link
+
+    for s in $links
+    do
+        ytdl $i $s $DATUM
+        ((i++))
+    done
 }
 
 DATUM=$(date -u +%Y%m%d_%H%M%S)
