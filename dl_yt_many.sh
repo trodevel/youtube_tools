@@ -87,7 +87,7 @@ start()
 
     echo "DEBUG: num_links=$num_links"
 
-    local i=first_link
+    local i=$first_link
 
     for s in $links
     do
