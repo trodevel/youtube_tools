@@ -87,12 +87,15 @@ start()
 
     echo "DEBUG: num_links=$num_links"
 
-    local i=$first_link
+    local i=1
+    local j=$first_link
 
     for s in $links
     do
-        ytdl $i $s $DATUM
+        echo "INFO: processing $i / $num_links"
+        ytdl $j $s $DATUM
         ((i++))
+        ((j++))
     done
 }
 
